@@ -40,7 +40,7 @@ Moveit provides a convenient eye-hand calibration package. It's a good idea to f
   <img src="https://github.com/mkt1412/HandEyeCalib-ROS/blob/main/images/Screenshot%20from%202021-11-19%2010-03-58.png" width="500">
 </p>
 
-The whole proces includes: start your camera, set tag parameters, print Aruco tag, set context configuration, task at least 5 samples, solve camera pose, save cameras poses & joint states.It uses opencv built-in aruco detector, which is buggy in opencv 3.2.0. We actually tested on opencv 3.2.0 and it gave very bad results.   
+The whole process includes: start your camera, set tag parameters, print Aruco tag, set context configuration, take at least 5 samples, solve camera pose, save cameras poses & joint states.It uses opencv built-in aruco detector, which is buggy in opencv 3.2.0. We actually tested on opencv 3.2.0 and it gave very bad results.   
 
 **Take care of which sensor frame you are using.** `Moveit calibration` uses the right-down-forward standard as specified [here](https://www.ros.org/reps/rep-0103.html). You might get totally different frame coordinates before and after loading camera into `HandEyeCalibration` For Intel Realsesne D435i, we found the frame coordinates of `camea_color_frame` has x axis pointing outwards while it is forced to z axis pointing outwards after being loaded. For this reason, we suggest using `camera_color_optical_frame`. Both `camea_color_frame` and `camera_color_optical_frame` do not locate at camera center since RGB camera is on rightmost side of D534i.
 

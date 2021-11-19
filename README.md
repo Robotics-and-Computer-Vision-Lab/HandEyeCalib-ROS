@@ -35,20 +35,24 @@ Make sure you git clone the right branch and put all the packages under the same
 
 Moveit provides a convenient eye-hand calibration package. It's a good idea to follow this [tutorial](https://ros-planning.github.io/moveit_tutorials/doc/hand_eye_calibration/hand_eye_calibration_tutorial.html) step by step.
 
-**put tutorial image image here**
+
+<p align="center">
+  <img src="https://github.com/mkt1412/HandEyeCalib-ROS/blob/main/images/Screenshot%20from%202021-11-19%2010-03-58.png" width="500">
+</p>
 
 The whole proces includes: start your camera, set tag parameters, print Aruco tag, set context configuration, task at least 5 samples, solve camera pose, save cameras poses & joint states.It uses opencv built-in aruco detector, which is buggy in opencv 3.2.0. We actually tested on opencv 3.2.0 and it gave very bad results.   
 
 **Take care of which sensor frame you are using.** `Moveit calibration` uses the right-down-forward standard as specified [here](https://www.ros.org/reps/rep-0103.html). You might get totally different frame coordinates before and after loading camera into `HandEyeCalibration` For Intel Realsesne D435i, we found the frame coordinates of `camea_color_frame` has x axis pointing outwards while it is forced to z axis pointing outwards after being loaded. For this reason, we suggest using `camera_color_optical_frame`. Both `camea_color_frame` and `camera_color_optical_frame` do not locate at camera center since RGB camera is on rightmost side of D534i.
 
-**put image to context confiruation, RGB**
+<!-- ![D535i](https://www.intelrealsense.com/wp-content/uploads/2020/05/depth-camera-d435_details.jpg | width=100) -->
+<p align="center">
+  <img src="https://www.intelrealsense.com/wp-content/uploads/2020/05/depth-camera-d435_details.jpg" width="500">
+</p>
 
 ## Eye-in-hand calibration with `aruco_ros` package (for ubuntu 18.04 with default opencv 3.2.0)
 Since the built-in aruco detecter is buggy in opencv 3.2.0, we instead use `aruco_ros` package. This section details the eye-in-hand calibration with `aruco_ros` package. First, in addition to the standard pre-requisites you may have downloaded, git clone `aruco_ros` with the link below:  
 
 * [aruco_ros](https://github.com/pal-robotics/aruco_ros/tree/melodic-devel): melodic-devel
-
-**put link to aruco tag generation**
 
 This package supports single or double aruco tags detection. After compiling the package, generate a aruco tag with appropriate size via this [link](https://tn1ck.github.io/aruco-print/) and print it out. Then edit marker configuration:
 
@@ -59,7 +63,9 @@ sudo gedit single.launch
 
 Here we use single aruco tag with markID as 9, marksize as 0.160m, camera_frame as `camera_color_optical_frame`. The launch file is configured as below:
 
-**put image to launch file configuration**
+<p align="center">
+  <img src="https://github.com/mkt1412/HandEyeCalib-ROS/blob/main/images/Screenshot%20from%202021-11-19%2016-07-03.png" width="800">
+</p>
 
 Run the command below to test if printed marker is detected successfully:
 
@@ -70,9 +76,11 @@ rosrun image_view image_view image:=/aruco_single/result  # visualize detected m
 ```
 You should be able to see something like:
 
-**put image to detected marker**
+<p align="center">
+  <img src="https://github.com/mkt1412/HandEyeCalib-ROS/blob/main/images/Screenshot%20from%202021-11-19%2015-11-12.png" width="500">
+</p>
 
-Then, you may continues to launch you robot. In our case, we run:
+Then, you may continue to launch you robot. In our case, we run:
 
 ```
 roslaunch kortex_driver kortex_driver
@@ -85,7 +93,9 @@ For some one who is using the same robot or camera, drivers can be downloaded an
 
 After launching the camera, aruco and robot successfully, you can load `HandEyeCalibration` in RViz as below:
 
-**add handeye panel**
+<p align="center">
+  <img src="https://github.com/mkt1412/HandEyeCalib-ROS/blob/main/images/Screenshot%20from%202021-11-19%2015-13-55.png" width="800">
+</p>
 
 In `HandEyeCalibration`, go to `Context`. Set the parameters as below:
 
@@ -98,7 +108,9 @@ Go to `Calibrate`. Now, you may start to move the camera around the take some sa
 
 For the record, our tf tree is as below:
 
-**tf tree**
+<p align="center">
+  <img src="https://github.com/mkt1412/HandEyeCalib-ROS/blob/main/images/Screenshot%20from%202021-11-19%2015-14-46.png" width="800">
+</p>
 
 ## Eye-to-hand calibration with `aruco_ros` package (for ubuntu 18.04 with default opencv 3.2.0)
 TBA

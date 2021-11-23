@@ -115,7 +115,38 @@ For the record, our tf tree is as below:
 ## Eye-to-hand calibration with `aruco_ros` package (for ubuntu 18.04 with default opencv 3.2.0)
 TBA
 ## Open-loop planar grasp execution
-TBA
+To grasp with 4-DoF (2.5d planar grasp), we modify [GGCNN](https://arxiv.org/abs/1804.05172) to fit our robot and setup (original implementation can be found [here](https://github.com/dougsm/ggcnn)). We choose GGCNN becuase it's light-weight and easy to deploy on any machine. 
+
+To detect 2.5d planar grasp, run the following commands:
+
+```
+cd PATH/TO/HandEyeCalib-ROS/planar_grasp_ggcnn
+roslaunch kortex_driver kortex_driver.launch # start robot arm driver
+roslaunch YOUR_HAND_EYE_CALIBRATION.launch # hand-eye calibration from last step, not included here
+```
+The commands above first launches KINOVA Gen3/Gen3 Lite dirver and then adds the calibrated hand-eye transform to arm tf tree.  
+
+Run modified ggcnn:
+```
+conda activate YOUR_GGCNN_ENV
+python vis_ggcnn.py
+```
+After running *viz_ggcnn.py*, RGB stream with detected planar grasp will pop out. By default, only the best grasp is shown. Feel free to change `--n-grasps` to any number you like. Aside from detecting grasps, the code will also publish a rostopic `/ggcnn_grasp_pose`. This topic includes grasp center(point), quality, angle, length, and depth value. To execute published grasp on your robot, open another terminal, run:
+
+```
+python ggcnn_pickNplace_gen3lite_full_arm_movement.py
+```
+It subscribes to `/ggcnn_grasp_pose`, converts the received grasp from camera frame to robot frame, and executes the grasp.
+
+
+
+
+
+
+
+
+
+
 ## Open-loop 6-DOF grasp execution
 TBA
 ## Close-loop planar grasp execution

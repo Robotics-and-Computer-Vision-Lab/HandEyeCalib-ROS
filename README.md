@@ -6,8 +6,8 @@ This repo provides a detailed tutorial to eye-in-han calibration, eye-to-hand ca
 ## Progress
 - [X] Eye-hand calibration with built-in aruco detecter (for opencv version after 3.2.0)  
 - [X] Eye-in-hand calibration with `aruco_ros` package (for ubuntu 18.04 with default opencv 3.2.0)
-- [ ] Eye-to-hand calibration with `aruco_ros` package (for ubuntu 18.04 with default opencv 3.2.0)
-- [ ] open-loop planar grasp execution
+- [X] Eye-to-hand calibration with `aruco_ros` package (for ubuntu 18.04 with default opencv 3.2.0)
+- [X] open-loop planar grasp execution
 - [ ] open-loop 6-DOF grasp execution
 - [ ] close-loop planar grasp execution
 - [ ] close-loop 6-DoF grasp execution
@@ -113,7 +113,29 @@ For the record, our tf tree is as below:
 </p>
 
 ## Eye-to-hand calibration with `aruco_ros` package (for ubuntu 18.04 with default opencv 3.2.0)
-TBA
+Eye-to-hand calibration is almost identical to eye-in-hand calibration. The only difference is where to attach the marker and sensor configuration in Moveit HandEye Calibration.
+
+First, attach the marker to the end-effector (shown below), and move the end-effector into the camera's view.
+
+<p align="center">
+  <img src="https://github.com/mkt1412/HandEyeCalib-ROS/blob/main/images/653839573.jpg" width="400">
+</p>
+
+Then, in `HandEyeCalibration`, go to `Context`. Set the parameters as below:
+
+* Sensor configuration: Eye-to-hand
+* Sensor frame: camera_color_optical_frame
+* End-effector frame: tool_frame
+* Robot base frame: base_link
+
+Your RViz should look like this:
+
+<p align="center">
+  <img src="https://github.com/mkt1412/HandEyeCalib-ROS/blob/main/images/Screenshot%20from%202022-04-12%2019-11-45.png" width="800">
+</p>
+
+The rest is the same as eye-in-hand calibration.
+
 ## Open-loop planar grasp execution
 To grasp with 4-DoF (2.5d planar grasp), we modify [GGCNN](https://arxiv.org/abs/1804.05172) to fit our robot and setup (original implementation can be found [here](https://github.com/dougsm/ggcnn)). We choose GGCNN becuase it's light-weight and easy to deploy on any machine. 
 

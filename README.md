@@ -1,7 +1,7 @@
 # HandEyeCalib-ROS
 
 ## Introduction
-This repo provides a detailed tutorial to eye-in-han calibration, eye-to-hand calibration, and downstream grasp execution. The ultimate goal is to build a handy toolbox for either desktop or mobile grasping/manipulation. We will update this repo from time to time to make sure the latest progress is included. Feel free to leave any questions or comments, we are willing to discuss.
+This repo provides a detailed tutorial to eye-in-hand calibration, eye-to-hand calibration, and downstream grasp execution. The ultimate goal is to build a handy toolbox for either desktop or mobile grasping/manipulation. We will update this repo from time to time to make sure the latest progress is included. Feel free to leave any questions or comments, we are willing to discuss.
 
 ## Progress
 - [X] Eye-hand calibration with built-in aruco detecter (for opencv version after 3.2.0)  

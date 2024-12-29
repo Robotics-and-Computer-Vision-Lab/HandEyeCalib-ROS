@@ -71,7 +71,7 @@ Run the command below to test if printed marker is detected successfully:
 
 ```
 roslaunch realsense2_camera rs_camera.lanuch  # launch your camera
-roslaunch aruco_ros sinlge.launch  # launch your marker detecter
+roslaunch aruco_ros single.launch  # launch your marker detecter
 rosrun image_view image_view image:=/aruco_single/result  # visualize detected marker
 ```
 You should be able to see something like:
